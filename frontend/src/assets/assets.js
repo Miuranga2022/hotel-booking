@@ -75,10 +75,12 @@ export const assets = {
 }
 
 export const cities = [
-    "Dubai",
-    "Singapore",
-    "New York",
-    "London",
+    "Colombo",
+    "Negombo",
+    "Galle",
+    "Kandy",
+    "Jaffna",
+    "Nuwara Eliya"
 ];
 
 // Exclusive Offers Dummy Data
@@ -97,7 +99,7 @@ export const testimonials = [
 
 // Facility Icon
 export const facilityIcons = {
-    "Free WiFi": assets.freeWifiIcon,
+    "Free Wifi": assets.freeWifiIcon,
     "Free Breakfast": assets.freeBreakfastIcon,
     "Room Service": assets.roomServiceIcon,
     "Mountain View": assets.mountainIcon,
