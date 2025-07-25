@@ -10,26 +10,31 @@ import connectCloudinary from './config/cloudinary.js';
 import roomRouter from './routes/roomRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
 
-connectDB();
-connectCloudinary()
-const app = express();
+const startServer = async () => {
+  try {
+    await connectDB(); // ✅ Wait for DB before starting server
+    connectCloudinary();
 
-app.use(cors()); //enable cors origin resource sharing
-//middleware
-app.use(express.json());
-app.use(clerkMiddleware());
+    const app = express();
 
-//api to listen cleark webhooks
-app.use('/api/clerk',ClerkWebhooks)
-app.get('/', (req, res) => res.send("Api is working again"));
-app.use('/api/user', userRouter);
-app.use('/api/hotels', hotelRouter);
-app.use('/api/rooms', roomRouter);
-app.use('/api/bookings', bookingRouter);
+    app.use(cors());
+    app.use(express.json());
+    app.use(clerkMiddleware());
 
+    app.use('/api/clerk', ClerkWebhooks);
+    app.get('/', (req, res) => res.send("API is working again"));
+    app.use('/api/user', userRouter);
+    app.use('/api/hotels', hotelRouter);
+    app.use('/api/rooms', roomRouter);
+    app.use('/api/bookings', bookingRouter);
 
-const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`✅ Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to start server:", err.message);
+  }
+};
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
- })
+startServer(); // ✅ Call async start function
